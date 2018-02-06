@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+{% block input %}
+<!-- input.html starts -->
+            <form action="/output" method="GET" id="inputform">
+            <div class="form-group">
+                <!-- <label for="query">Search:</label> -->
+                <input type="text" id="query_input" name="query_input" size="50" placeholder="How do I... ">
+            </div>
+            <div>
+                <button type="submit" class="btn btn-default btn-lg" name="to_SO" value="False">Get Suggestions!</button>
+                <button type="submit" class="btn btn-default btn-lg" name="to_SO" value="True" >To Stack Oveflow!</button>
+            </div>
+            </form>
+<!-- input.html ends -->{% endblock %}

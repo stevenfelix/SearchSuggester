@@ -1,0 +1,124 @@
+{% extends 'input.html' %}
+
+{% block output %}
+    <script>
+        var theForm = document.getElementById('inputform');  
+        var theField = document.getElementById('query_input');
+    </script>
+    <br><br>
+    <div class="container", style="text-align:center">
+            <h3>Consider these alternatives to "<a href="https://stackoverflow.com/search?q={{ query }}" target="_blank">{{ query }}</a>":</h3>
+            <font size="+2">
+            {% for suggestion in suggestions %}
+            <br>
+            <a href="https://stackoverflow.com/search?q={{ suggestion }}" target="_blank" id="{{ suggestion }}">{{ suggestion }}</a>
+            {% endfor %}
+            </font>
+    </div>
+
+        
+    <div class="container", style="text-align:center">
+        <table class="table">
+            <thead>
+                <tr>
+                    {% for synonym in synonyms %}
+                    <th id="{{ synonym[0] }}">{{ synonym[0] }}</th>
+                    <script>
+                        var sug = document.getElementById('{{ synonym[0] }}');
+                        sug.onclick = (function() {
+                            theField.value += '{{ synonym[0] }}'+' ';
+                        })  
+                    </script>
+                    {% endfor %}                        
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for synonym in synonyms %}
+                    <th id="{{ synonym[1] }}">{{ synonym[1] }}</th>
+                    <script>
+                        var sug = document.getElementById('{{ synonym[1] }}');
+                        sug.onclick = (function() {
+                            theField.value += '{{ synonym[1] }}'+' ';
+                        })  
+                    </script>
+                    {% endfor %}  
+                </tr>
+                <tr>
+                    {% for synonym in synonyms %}
+                    <th id="{{ synonym[2] }}">{{ synonym[2] }}</th>
+                    <script>
+                        var sug = document.getElementById('{{ synonym[2] }}');
+                        sug.onclick = (function() {
+                            theField.value += '{{ synonym[2] }}'+' ';
+                        })  
+                    </script>
+                    {% endfor %}  
+                </tr>
+                <tr>
+                    {% for synonym in synonyms %}
+                    <th id="{{ synonym[3] }}">{{ synonym[3] }}</th>
+                    <script>
+                        var sug = document.getElementById('{{ synonym[3] }}');
+                        sug.onclick = (function() {
+                            theField.value += '{{ synonym[3] }}'+' ';
+                        })  
+                    </script>
+                    {% endfor %}  
+                </tr>
+                <tr>
+                    {% for synonym in synonyms %}
+                    <th id="{{ synonym[4] }}">{{ synonym[4] }}</th>
+                    <script>
+                        var sug = document.getElementById('{{ synonym[4] }}');
+                        sug.onclick = (function() {
+                            theField.value += '{{ synonym[4] }}'+' ';
+                        })  
+                    </script>
+                    {% endfor %}  
+                </tr>
+                <tr>
+                    {% for synonym in synonyms %}
+                    <th id="{{ synonym[5] }}">{{ synonym[5] }}</th>
+                    <script>
+                        var sug = document.getElementById('{{ synonym[5] }}');
+                        sug.onclick = (function() {
+                            theField.value += '{{ synonym[5] }}'+' ';
+                        })  
+                    </script>
+                    {% endfor %}  
+                </tr>
+            </tbody>
+        </table>
+    </div> <!-- /.container -->
+        
+
+
+<!-- javascript attempt:
+    <div class = "container", style="text-align:center" id="letters_div">
+        <script>  
+            var theForm = document.getElementById('inputform');  
+            var theField = document.getElementById('query_input');  
+            var frag = document.createDocumentFragment();  
+            var wrapper = document.getElementById('letters_div');  
+            wrapper.id = 'wrapper';
+            wrapper.class = 'starter-template'; 
+            var letters = [{% for suggestion in suggestions %}'{{ suggestion }}', {% endfor %}];  
+            for (var i = 0; i < {{ len_sug }}; i++) {  
+              var div = document.createElement('div');  
+              div.className = 'letter';  
+              div.innerHTML = letters[i];  
+              wrapper.appendChild(div);  
+              div.onclick = (function(i) {  
+                  return function() {  
+                      theField.value += ' '+letters[i];  
+                  }  
+              })(i);  
+            }
+            frag.appendChild(wrapper);
+            theForm.parentNode.insertBefore(frag, theForm.nextSibling);  
+        </script>  
+        -->
+    
+    </div><!-- /.container-->
+{% endblock %}

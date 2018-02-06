@@ -1,0 +1,70 @@
+{% extends 'input.html' %}
+
+{% block output %}
+        <br><br>
+        <div class="container">
+            <div class="col-sm-3", style="text-align:center"></div>
+            <div class="col-sm-6", style="text-align:center">
+              <ul class="nav nav-tabs nav-justified" style="text-align:center">
+                <li class="active"><a data-toggle="tab" href="#suggestions">Suggestions</a></li>
+                <li><a data-toggle="tab" href="#constructor">Query Constructor</a></li>
+              </ul>
+            
+              <div class="tab-content">
+                <div id="suggestions" class="tab-pane fade in active">
+                  <h3>Alternative Queries
+                    <p> <small>The following queries are the most probable combinations of the words to the right. Click them to search stackOverflow.
+                    </small></h3>
+                    <br><br>
+                    <font size="+1">
+                    {% for suggestion in suggestions %}
+                    <a href="https://stackoverflow.com/search?q={{ suggestion }}" target="_blank" id="{{ suggestion }}">{{ suggestion }}</a><p>
+                    {% endfor %}
+                    </font>
+                </div>
+                <div id="constructor" class="tab-pane fade">
+                    <h3> Query Constructor
+                    <p><small>Want more control? Construct your own query by clicking any words below. You will find your original query in the first line, and similar words below.
+                    </small></h3>
+                    <br><br>
+                    <font size="+1">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                {% for synonym in synonyms %}
+                                <th id="{{ synonym[0] }}">{{ synonym[0] }}</th>
+                                {% endfor %}                        
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in range(1,max_l) %}
+                            <tr>
+                                {% for synonym in synonyms %}
+                                    <th id="{{ synonym[i] }}">{{ synonym[i] }}</th>
+                                {% endfor %} 
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    </font>
+                </div>
+              </div>
+            </div>
+        </div>
+        <br><br>
+        
+<script>
+    var theForm = document.getElementById('inputform');  
+    var theField = document.getElementById('query_input');
+    {% for synonym in synonyms %}
+    {% for word in synonym %}
+    var {{ word }} = document.getElementById('{{ word }}');
+    {{ word }}.onclick = (function() {
+        theField.value += '{{ word }}'+' ';
+    })
+    {% endfor %}
+    {% endfor %}
+
+</script> 
+
+{% endblock %}
